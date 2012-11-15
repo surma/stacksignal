@@ -8,3 +8,5 @@ be:
 ```Go
 import _ "github.com/surma/stacksignal"
 ```
+---
+Version 1.0.0

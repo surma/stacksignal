@@ -17,6 +17,10 @@ import (
 	"syscall"
 )
 
+const (
+	VERSION = "1.0.0"
+)
+
 func init() {
 	go func() {
 		c := make(chan os.Signal)
