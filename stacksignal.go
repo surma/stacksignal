@@ -1,3 +1,13 @@
+/*
+Package stacksignal registers a signal handler for SIGUSR1.
+Whenever the importing program receives SIGUSR1, a full
+stacktrace of all goroutines will be printed to StdErr.
+
+Since there are no functions to use, the import line should
+be
+
+	import _ "github.com/surma/stacksignal"
+*/
 package stacksignal
 
 import (
@@ -5,6 +15,10 @@ import (
 	"os/signal"
 	"runtime"
 	"syscall"
+)
+
+const (
+	VERSION = "1.0.0"
 )
 
 func init() {
