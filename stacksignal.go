@@ -11,6 +11,7 @@ be
 package stacksignal
 
 import (
+	"fmt"
 	"os"
 	"os/signal"
 	"runtime"
@@ -25,10 +26,20 @@ func init() {
 	go func() {
 		c := make(chan os.Signal)
 		signal.Notify(c, syscall.SIGUSR1)
-		buf := make([]byte, 1024*16)
+		n := 512
 		for _ = range c {
-			runtime.Stack(buf, true)
-			os.Stderr.Write(buf)
+			buf := make([]byte, n)
+			for {
+				m := runtime.Stack(buf, true)
+				if m < n {
+					break
+				}
+				n *= 2
+				buf = make([]byte, n)
+			}
+			fmt.Fprintln(os.Stderr, "=== Begin stack trace")
+			fmt.Fprintln(os.Stderr, string(buf))
+			fmt.Fprintln(os.Stderr, "=== End stack trace")
 		}
 	}()
 }
