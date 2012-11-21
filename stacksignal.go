@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	VERSION = "1.1.0"
+	VERSION = "1.1.1"
 )
 
 func init() {
@@ -32,6 +32,7 @@ func init() {
 			for {
 				m := runtime.Stack(buf, true)
 				if m < n {
+					buf = buf[:m]
 					break
 				}
 				n *= 2
