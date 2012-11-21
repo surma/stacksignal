@@ -32,6 +32,7 @@ func init() {
 			for {
 				m := runtime.Stack(buf, true)
 				if m < n {
+					buf = buf[:m]
 					break
 				}
 				n *= 2
